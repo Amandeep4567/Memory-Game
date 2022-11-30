@@ -58,10 +58,10 @@ const gridDisplay = document.querySelector("#grid");
 function createBoard() {
   for (let i = 0; i < cardArray.length; i++) {
     const card = document.createElement("img");
+    console.log(card);
     card.setAttribute("src", "images/blank.png");
     card.setAttribute("data-id", i);
     gridDisplay.append(card);
   }
 }
-
 createBoard();
