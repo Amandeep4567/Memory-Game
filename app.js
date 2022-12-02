@@ -93,11 +93,11 @@ function checkMatch() {
     cards[optionTwoId].setAttribute("src", "images/blank.png");
     // alert("Sorry try again!");
   }
-  resultDisplay.textContent = cardsWon.length;
   cardsChosen = [];
   cardsChosenIds = [];
+  resultDisplay.textContent = cardsWon.length;
 
-  if (cardsWon.length == cardArray / 2) {
+  if (cardsWon.length == cardArray.length / 2) {
     resultDisplay.textContent = "Congratulations you found them all!";
   }
 }
