@@ -55,9 +55,15 @@ cardArray.sort(() => 0.5 - Math.random());
 
 const gridDisplay = document.querySelector("#grid");
 const resultDisplay = document.querySelector("#result");
+const guessOutput = document.querySelector("#guess");
+const totalAttempt = document.querySelector("#attempt");
+const storeAttempt = document.querySelector("#attain");
+const tryAgain = document.querySelector("#again");
 let cardsChosen = [];
 let cardsChosenIds = [];
 const cardsWon = [];
+let attempt = 0;
+let attain = 0;
 
 function createBoard() {
   for (let i = 0; i < cardArray.length; i++) {
@@ -80,9 +86,13 @@ function checkMatch() {
   if (optionOneId == optionTwoId) {
     cards[optionOneId].setAttribute("src", "images/blank.png");
     cards[optionTwoId].setAttribute("src", "images/blank.png");
-    alert("You have clicked the same image!");
+    // alert("You have clicked the same image!");
+    guessOutput.textContent = "You have clicked the same image!🥲";
+    attempt++;
   } else if (cardsChosen[0] == cardsChosen[1]) {
-    alert("You found a match");
+    // alert("You found a match");
+    guessOutput.textContent = "Hurrah! found a match!😊";
+    attempt++;
     cards[optionOneId].setAttribute("src", "images/white.png");
     cards[optionTwoId].setAttribute("src", "images/white.png");
     cards[optionOneId].removeEventListener("click", flipCard);
@@ -92,13 +102,26 @@ function checkMatch() {
     cards[optionOneId].setAttribute("src", "images/blank.png");
     cards[optionTwoId].setAttribute("src", "images/blank.png");
     // alert("Sorry try again!");
+    guessOutput.textContent = "Opps! try again!😢";
+    attempt++;
   }
+  totalAttempt.textContent = attempt;
   cardsChosen = [];
   cardsChosenIds = [];
   resultDisplay.textContent = cardsWon.length;
 
   if (cardsWon.length == cardArray.length / 2) {
-    resultDisplay.textContent = "Congratulations you found them all!";
+    resultDisplay.textContent = "Congratulations you found them all!🥳";
+    attain = attempt;
+    storeAttempt.textContent = attain;
+    totalAttempt.textContent = "0";
+    console.log(attain);
+    // totalAttempt.textContent = "0";
+  }
+
+  if (attempt >= 14) {
+    setTimeout("window.location.reload()", 3000);
+    guessOutput.textContent = "Maximum attempt completed";
   }
 }
 
@@ -116,3 +139,8 @@ function flipCard() {
     setTimeout(checkMatch, 500);
   }
 }
+
+tryAgain.addEventListener("click", function () {
+  totalAttempt.textContent = "0";
+  location.reload();
+});
